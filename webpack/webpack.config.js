@@ -158,7 +158,7 @@ module.exports = (env, argv) => {
         '@constants': path.resolve(__dirname, '../src/constants/index.ts'),
         '@icons': path.resolve(__dirname, '../src/assets'),
         '@underscore': path.resolve(__dirname, '../src/vendor/underscore/index'),
-        '@wxlib': path.resolve(__dirname, '../src/libs/wxlib/index.ts'),
+        '@wxlib': path.resolve(__dirname, '../src/libs/wxlib/index.js'),
       },
     },
     devtool: isDevMode ? 'eval-source-map' : false,
