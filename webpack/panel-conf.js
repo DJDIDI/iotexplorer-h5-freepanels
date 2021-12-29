@@ -45,4 +45,10 @@ module.exports = {
       ['panel-default', { enable: true }],
     ],
   },
+  SummitInfo: {
+    enable: true,
+    panels: [
+      ['panel-default', { enable: true }],
+    ],
+  },
 };

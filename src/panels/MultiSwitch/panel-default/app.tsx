@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, createContext } from 'react';
+import React, { useMemo, useState, createContext } from 'react';
 import { useDeviceInfo } from '@hooks/useDeviceInfo';
 import { SwitchPanel } from './SwitchPanel';
 import { entryWrap } from '@src/entryWrap';

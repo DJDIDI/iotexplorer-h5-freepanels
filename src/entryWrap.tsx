@@ -39,5 +39,5 @@ export function entryWrap(Component) {
 
   resize();
 
-  ReactDOM.render(<Component/>, document.getElementById('app'));
+  ReactDOM.render(<Component />, document.getElementById('app'));
 }
