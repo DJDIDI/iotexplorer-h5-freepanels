@@ -8,15 +8,21 @@ import './SummitInfo.less';
 
 const enum DEVICE_DATA {
   COMPANY = 'company',
-  POSITION = 'position',
+  POSITION = 'title',
   NAME = 'name',
 }
+
+const dataCnMap = {
+  [DEVICE_DATA.COMPANY]: '公司',
+  [DEVICE_DATA.POSITION]: '头衔',
+  [DEVICE_DATA.NAME]: '姓名',
+};
 
 function App() {
   const [{ statusTip }] = useDeviceInfo();
   const [formData, setFormData] = useState({
     company: '',
-    position: '',
+    title: '',
     name: '',
   });
 
@@ -38,6 +44,7 @@ function App() {
     deviceData[DEVICE_DATA.COMPANY] = util.gbkHexStrToUtfStr(deviceData[DEVICE_DATA.COMPANY].Value);
     deviceData[DEVICE_DATA.POSITION] = util.gbkHexStrToUtfStr(deviceData[DEVICE_DATA.POSITION].Value);
     deviceData[DEVICE_DATA.NAME] = util.gbkHexStrToUtfStr(deviceData[DEVICE_DATA.NAME].Value);
+    console.log('初始化物模型', deviceData);
     return deviceData;
   };
 
@@ -61,14 +68,25 @@ function App() {
     try {
       console.log('【提交表单】', formData, sdk.deviceData);
       if (Object.values(formData).includes('')) {
-        sdk.tips.showInfo('请完善信息');
+        sdk.tips.alert('请完善信息');
         return;
       }
       const deviceData = {
         [DEVICE_DATA.COMPANY]: util.utfStrToGbkHexStr(formData.company),
-        [DEVICE_DATA.POSITION]: util.utfStrToGbkHexStr(formData.position),
+        [DEVICE_DATA.POSITION]: util.utfStrToGbkHexStr(formData.title),
         [DEVICE_DATA.NAME]: util.utfStrToGbkHexStr(formData.name),
       };
+      // 12字节限制
+      const entries = Object.entries(deviceData);
+      for (let i = 0; i < 3; i++) {
+        const [key, value] = entries[i] as [any, string];
+        console.log([key, value]);
+        if (value.length > 24) {
+          console.log(dataCnMap[key]);
+          sdk.tips.alert(`"${dataCnMap[key]}"过长，最大支持6个中文或12个英文`);
+          return;
+        }
+      }
       sdk.tips.showLoading('提交中');
       console.log('【control物模型】', deviceData);
       await sdk.controlDeviceData(deviceData);
@@ -108,10 +126,10 @@ function App() {
               </div>
             </div>
             <div className="form-item">
-              <div className="form-item-label">职位</div>
+              <div className="form-item-label">头衔</div>
               <div className="form-item-input">
-                <input type="text" placeholder="请输入职位" value={formData.position}
-                       onChange={e => updateFormData(e, 'position')} />
+                <input type="text" placeholder="请输入头衔" value={formData.title}
+                       onChange={e => updateFormData(e, 'title')} />
               </div>
             </div>
             <div className="form-item">

@@ -61,12 +61,11 @@
 
       input {
         display: block;
-        text-overflow: clip;
-        overflow: hidden;
         white-space: nowrap;
         outline: none;
         background: none;
         border: 0;
+        height: 100%;
 
         &::-webkit-inner-spin-button {
           -webkit-appearance: none;
@@ -76,6 +75,10 @@
       &-label {
         width: 168px;
         padding-left: 20px;
+      }
+
+      &-input {
+        height: 64px;
       }
     }
   }
