@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "devdj": "npm run dev --category=DJTestPanel --panel=panel-default",
     "dev": "npx webpack serve --config webpack/webpack.config.js --mode=development",
     "build": "npx webpack --config webpack/webpack.config.js --mode=production",
     "lint": "eslint  ./src",
